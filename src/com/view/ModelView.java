@@ -3,9 +3,10 @@ package com.view;
 import java.util.Scanner;
 
 public interface ModelView {
-    public void view(Scanner sc);
-    public void view(int id);
-    public void make(Scanner sc);
-    public void edit(Scanner sc);
-    public void edit(int id, Scanner sc);
+    boolean view(Scanner sc);
+    boolean view(int id);
+    void make(Scanner sc);
+    boolean edit(Scanner sc);
+    boolean edit(int id, Scanner sc);
+    boolean delete(Scanner sc);
 }
