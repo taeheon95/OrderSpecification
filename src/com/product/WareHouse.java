@@ -3,11 +3,6 @@ package com.product;
 import java.util.HashMap;
 import java.util.Map;
 
-@FunctionalInterface
-interface productFunction {
-	void productFunctionMethod();
-}
-
 public class WareHouse {
 	
 	private Map<String, Integer> productCounts;
@@ -17,7 +12,7 @@ public class WareHouse {
 //	private String houseTel;
 	
 	WareHouse() {
-		this.productCounts = new HashMap<String, Integer>();
+		this.productCounts = new HashMap<>();
 	}
 	
 //	public String getHouseName() {
@@ -40,18 +35,15 @@ public class WareHouse {
 //	}
 	
 	boolean isProductStored(String productId) {
-		if(productCounts.keySet().contains(productId)) {
-			return true;
-		}
-		return false;
+		return productCounts.containsKey(productId);
 	}
 	
 	void storeProduct(Product product, int num) {
-		Integer temp;
+		int temp;
 		String productId = product.getProductId();
 		
 		if(isProductStored(productId)) {
-			temp = productCounts.get(productId).intValue() + num;
+			temp = productCounts.get(productId) + num;
 		}else {
 			temp = num;
 		}
@@ -63,8 +55,8 @@ public class WareHouse {
 		
 		if(isProductStored(productId)) {
 			if(num <= productCounts.get(productId)) {
-				Integer temp;
-				temp = productCounts.get(productId).intValue() - num;
+				int temp;
+				temp = productCounts.get(productId) - num;
 				productCounts.put(productId, temp);
 				return true;
 			}
