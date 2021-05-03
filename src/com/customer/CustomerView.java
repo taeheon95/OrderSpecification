@@ -7,28 +7,30 @@ import com.view.ModelView;
 public class CustomerView implements ModelView {
 
     @Override
-    public void view(Scanner sc) {
-        int id;
+    public boolean view(Scanner sc) {
+        int c_num;
 
         System.out.println("보려는 고객의 고객 번호를 입력해주세요.");
 
-        id = sc.nextInt();
-        view(id);
+        c_num = sc.nextInt();
+        return view(c_num);
 
     }
 
     @Override
-    public void view(int id) {
+    public boolean view(int c_num) {
         CustomerController controller = CustomerController.getInstance();
-        Customer cus = controller.getCustomer(id);
+        Customer cus = controller.getCustomer(c_num);
         if(cus != null){
             System.out.println("회원 번호 : " + cus.getCus_num());
             System.out.println("이름 : " + cus.getName());
             System.out.println("주소 : " + cus.getAddress());
             System.out.println("전화 번호 : " + cus.getTel());
+            return true;
         }
         else{
             System.out.println("존재하지 않는 회원 번호 입니다.");
+            return false;
         }
     }
 
@@ -50,20 +52,20 @@ public class CustomerView implements ModelView {
     }
 
     @Override
-    public void edit(Scanner sc) {
+    public boolean edit(Scanner sc) {
         System.out.println("편집하려는 고객 번호를 입력해주세요.");
-        int id = sc.nextInt();
-        edit(id, sc);
+        int c_num = sc.nextInt();
+        return edit(c_num, sc);
     }
 
     @Override
-    public void edit(int id, Scanner sc) {
+    public boolean edit(int c_num, Scanner sc) {
         CustomerController controller = CustomerController.getInstance();
-        Customer customer = controller.getCustomer(id);
+        Customer customer = controller.getCustomer(c_num);
         String name, address, tel;
 
         if(customer != null){
-            view(id);
+            view(c_num);
 
             System.out.print("이름 : ");
             name = sc.next();
@@ -77,11 +79,28 @@ public class CustomerView implements ModelView {
             tel = sc.next();
             System.out.println();
 
-            controller.editCustomer(id, name, address, tel);
+            controller.editCustomer(c_num, name, address, tel);
+
+            return true;
         }
         else{
             System.out.println("없는 회원 번호 입니다.");
+            return false;
         }
     }
 
+    @Override
+    public boolean delete(Scanner sc) {
+        CustomerController controller = CustomerController.getInstance();
+        System.out.println("삭제할 회원(또는 당신)의 회원 번호를 입력해주세요.");
+        int c_num = sc.nextInt();
+        if(controller.isCustomer(c_num)){
+            controller.removeCustomer(c_num);
+            return true;
+        }
+        else{
+            System.out.println("회원 번호가 잘못 되었습니다.");
+            return false;
+        }
+    }
 }
