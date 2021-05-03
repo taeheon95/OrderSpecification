@@ -4,14 +4,16 @@ import java.util.HashMap;
 
 class CustomerController {
     private static int CUSTOMER_NUM = 0;
-    private static final CustomerController instance = new CustomerController();
-    private static final HashMap<Integer, Customer> customers = new HashMap<>();
+    private static CustomerController instance;
+    private final HashMap<Integer, Customer> customers;
 
     private CustomerController() {
-
+        customers = new HashMap<>();
     }
 
     static CustomerController getInstance() {
+        if(instance == null)
+            instance = new CustomerController();
         return instance;
     }
 

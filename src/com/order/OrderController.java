@@ -1,88 +1,69 @@
 package com.order;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import com.customer.Customer;
+import java.util.*;
 
 public class OrderController {
 	private static int ORDER_NUM = 0;
-	private static OrderController instance = new OrderController();
-	private static LinkedList<Order> orders = new LinkedList<Order>();
+	private static OrderController instance;
+	private final HashMap<Integer,Order> orders;
 	
 	private OrderController() {
-		
+		orders = new HashMap<>();
 	}
 	
 	public static OrderController getInstance() {
+		if(instance == null){
+			instance = new OrderController();
+		}
 		return instance;
 	}
+
+	Order getOrder(int order_num){
+		return orders.get(order_num);
+	}
 	
-	public int makeOrder(Customer customer, OrderSpecification[] os) {
-		if(ORDER_NUM < 100) {
-			Order newOrder = new Order(ORDER_NUM++, new Date(), customer.getCus_num());
-			for (OrderSpecification orderSpecification : os) {
-				newOrder.addProduct(orderSpecification);
-			}
-			orders.add(newOrder);
-			return newOrder.getOrderNum();			
-		}
-		return -1;
+	public int makeOrder(int cus_num, LinkedList<OrderSpecification> os) {
+		Order newOrder = new Order(ORDER_NUM, new Date(), cus_num, os);
+		orders.put(ORDER_NUM, newOrder);
+		return ORDER_NUM++;
 	}
 	
 	public boolean addOrderSpecification(int orderNum, OrderSpecification os) {
-		for (Order order : orders) {
-			if(order.getOrderNum() == orderNum) {
-				order.addProduct(os);
-				return true;
-			}
+		Order order = orders.get(orderNum);
+		if(order != null){
+			order.addProduct(os);
+			return true;
 		}
 		return false;
 	}
 	
 	public boolean removeOrderSpecification(int orderNum, String productId) {
-		for (Order order : orders) {
-			if(order.getOrderNum() == orderNum) {
-				return order.deleteProduct(productId);
-			}
+		Order order = orders.get(orderNum);
+		if(order != null){
+			return order.deleteProduct(productId);
 		}
 		return false;
 	}
 	
 	public boolean removeOrder(int orderNum) {
-		for (Iterator<Order> it = orders.iterator(); it.hasNext();) {
-			if(it.next().getOrderNum() == orderNum) {
-				it.remove();
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean searchOrder(int orderNum, Order order) {
-		for(int i=0; i<orders.size(); i++) {
-			Order temp = orders.get(i);
-			if(temp.getOrderNum() == orderNum) {
-				order = temp;
-				return true;
-			}
+		Order order = orders.get(orderNum);
+		if(order != null){
+			Order remove = orders.remove(orderNum);
+			remove.deleteAllProduct();
+			return true;
 		}
 		return false;
 	}
 	
 	public boolean getOrderDate(int orderNum, StringBuffer orderDateStr) {
-		for (Iterator<Order> iterator = orders.iterator(); iterator.hasNext();) {
-			Order order = iterator.next();
-			if(order.getOrderNum() == orderNum) {
-				orderDateStr = new StringBuffer(order.getDate());
-				return true;
-			}
+		if(getOrder(orderNum) != null){
+			orderDateStr = new StringBuffer(getOrder(orderNum).getDate());
+			return true;
 		}
 		return false;
 	}
 	
-	public LinkedList<Order> returnOrders(){
-		return orders;
+	public Order[] returnOrders(){
+		return (Order[]) orders.values().toArray();
 	}
 }

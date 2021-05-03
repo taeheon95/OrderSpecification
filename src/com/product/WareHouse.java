@@ -2,45 +2,49 @@ package com.product;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class WareHouse {
 	
-	private Map<String, Integer> productCounts;
+	private final Map<String, Integer> productCounts;
 
-//	private String houseName;
-//	private String houseAddress;
-//	private String houseTel;
+	private String houseName;
+	private String houseAddress;
+	private String houseTel;
 	
 	WareHouse() {
 		this.productCounts = new HashMap<>();
 	}
 	
-//	public String getHouseName() {
-//		return houseName;
-//	}
-//	public void setHouseName(String houseName) {
-//		this.houseName = houseName;
-//	}
-//	public String getHouseAddress() {
-//		return houseAddress;
-//	}
-//	public void setHouseAddress(String houseAddress) {
-//		this.houseAddress = houseAddress;
-//	}
-//	public String getHouseTel() {
-//		return houseTel;
-//	}
-//	public void setHouseTel(String houseTel) {
-//		this.houseTel = houseTel;
-//	}
+	public String getHouseName() {
+		return houseName;
+	}
+	public void setHouseName(String houseName) {
+		this.houseName = houseName;
+	}
+	public String getHouseAddress() {
+		return houseAddress;
+	}
+	public void setHouseAddress(String houseAddress) {
+		this.houseAddress = houseAddress;
+	}
+	public String getHouseTel() {
+		return houseTel;
+	}
+	public void setHouseTel(String houseTel) {
+		this.houseTel = houseTel;
+	}
 	
 	boolean isProductStored(String productId) {
 		return productCounts.containsKey(productId);
 	}
-	
-	void storeProduct(Product product, int num) {
+
+	int productCounts(String productId){
+		return productCounts.get(productId);
+	}
+
+	void storeProduct(String productId, int num) {
 		int temp;
-		String productId = product.getProductId();
 		
 		if(isProductStored(productId)) {
 			temp = productCounts.get(productId) + num;
@@ -73,5 +77,18 @@ public class WareHouse {
 	void showProduct(String productId) {
 		if(isProductStored(productId))
 			System.out.println("{" + productId + "," + productCounts.get(productId) + "}");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof WareHouse)) return false;
+		WareHouse wareHouse = (WareHouse) o;
+		return getHouseName().equals(wareHouse.getHouseName()) && getHouseAddress().equals(wareHouse.getHouseAddress()) && getHouseTel().equals(wareHouse.getHouseTel());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getHouseName(), getHouseAddress(), getHouseTel());
 	}
 }

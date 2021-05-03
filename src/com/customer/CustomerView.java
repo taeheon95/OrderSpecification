@@ -22,10 +22,7 @@ public class CustomerView implements ModelView {
         CustomerController controller = CustomerController.getInstance();
         Customer cus = controller.getCustomer(c_num);
         if(cus != null){
-            System.out.println("회원 번호 : " + cus.getCus_num());
-            System.out.println("이름 : " + cus.getName());
-            System.out.println("주소 : " + cus.getAddress());
-            System.out.println("전화 번호 : " + cus.getTel());
+            System.out.println(cus);
             return true;
         }
         else{

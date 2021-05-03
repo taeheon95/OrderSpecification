@@ -11,8 +11,7 @@ class OrderSpecification {
 		this.orderQuantity = orderQuantity;
 		this.discount = discount;
 	}
-	
-	
+
 	int getOrderQuantity() {
 		return orderQuantity;
 	}
@@ -28,19 +27,17 @@ class OrderSpecification {
 	String getProductId() {
 		return productId;
 	}
-	void setProduct(String productId) {
+	void setProductId(String productId) {
 		this.productId = productId;
 	}
 
 
 	@Override
 	public String toString() {
-		return "OrderSpecification ["
-				+ "productId=" + productId + ", "
-				+ "orderQuantity=" + orderQuantity + ", "
-				+ "discount=" + discount +
+		return "주문 상세 : ["
+				+ "제품 ID = " + getProductId() + ", "
+				+ "제품 수량 = " + getOrderQuantity() + ", "
+				+ "할일률 = " + getDiscount() +
 				"]";
 	}
-	
-	
 }

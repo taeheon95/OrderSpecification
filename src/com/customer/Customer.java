@@ -43,6 +43,11 @@ public class Customer {
 
     @Override
     public String toString() {
-        return Integer.toString(cus_num) + name + address + tel;
+        return "회원 [ " +
+                "회원 번호 : " + getCus_num() + ", " +
+                "이름 : " + getName() + ", " +
+                "주소 : " + getAddress() + ", " +
+                "전화 번호 : " + getTel() +  "]" ;
+
     }
 }

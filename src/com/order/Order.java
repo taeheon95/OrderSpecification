@@ -12,11 +12,11 @@ public class Order {
 	private final int customerNum;
 	private LinkedList<OrderSpecification> orderSpecificationList;
 	
-	Order(int orderNum, Date date, int customerNum) {
+	Order(int orderNum, Date date, int customerNum, LinkedList<OrderSpecification> os) {
 		this.orderNum = orderNum;
 		this.date = date;
 		this.customerNum = customerNum;
-		this.orderSpecificationList = new LinkedList<OrderSpecification>();
+		this.orderSpecificationList = os;
 	}
 	
 	int getOrderNum() {
@@ -24,7 +24,7 @@ public class Order {
 	}
 
 	String getDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년MM월dd일");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM월 dd일");
 		return sdf.format(date);
 	}
 	
@@ -55,12 +55,16 @@ public class Order {
 		this.orderSpecificationList = orderSpecificationList;
 	}
 
+	void deleteAllProduct() {
+		orderSpecificationList.clear();
+	}
+
 	@Override
 	public String toString() {
-		return "Order ["
+		return "주문 ["
 				+ "주문 번호=" + orderNum + ", "
 				+ "주문 날짜=" + getDate() + ", "
-				+ "고객 번호=" + customerNum + ", " 
+				+ "고객 번호=" + customerNum + ", "
 				+ "주문 개수=" + orderSpecificationList.size() +
 				"]";
 	}
