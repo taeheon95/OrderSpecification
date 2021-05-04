@@ -4,10 +4,12 @@ public class Product {
 	
 	private final String productId;
 	private String productName;
-	private String productPrice;
-	
-	Product(String productId) {
+	private int productPrice;
+
+	Product(String productId, String productName, int productPrice) {
 		this.productId = productId;
+		this.productName = productName;
+		this.productPrice = productPrice;
 	}
 
 	String getProductName() {
@@ -18,11 +20,11 @@ public class Product {
 		this.productName = productName;
 	}
 
-	String getProductPrice() {
+	int getProductPrice() {
 		return productPrice;
 	}
 
-	void setProductPrice(String productPrice) {
+	void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
 
