@@ -29,8 +29,9 @@ public class OrderView implements ModelView{
 			System.out.println();
 			System.out.println("========================주문 목록===============================");
 
-			List<OrderSpecification> specificationList = order.getOrderSpecificationList();
-			specificationList.forEach(System.out::println);
+			for(OrderSpecification os : order.getOrderSpecificationList()){
+				System.out.println(os);
+			}
 
 			return true;
 		}
@@ -47,7 +48,7 @@ public class OrderView implements ModelView{
 		System.out.print("당신의 회원 번호를 입력해주세요 : ");
 		cus_num = sc.nextInt();
 		int orderNum = orderController.makeOrder(cus_num);
-		System.out.println("주문 번호는 " + orderController.makeOrder(cus_num) + "입니다.");
+		System.out.println("주문 번호는 " + orderNum + "입니다.");
 
 		do{
 			System.out.print("주문하려는 상품의 ID를 입력해주세요. : ");
@@ -62,6 +63,7 @@ public class OrderView implements ModelView{
 			}
 
 			OrderSpecification os = new OrderSpecification(productId, orderQuantity);
+			productController.orderProductsWhereWareHouse(productId,orderQuantity);
 			orderController.addOrderSpecification(orderNum, os);
 
 			System.out.println("계속 입력하시겠습니까?(y/N)");
