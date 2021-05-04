@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a358c17-6387-4315-a4e6-2abbd90d2703" name="디폴트 변경 목록" comment="Error Test End" />
+    <list default="true" id="8a358c17-6387-4315-a4e6-2abbd90d2703" name="디폴트 변경 목록" comment="git ignore update">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,6 +97,7 @@
       <workItem from="1620089035342" duration="195000" />
       <workItem from="1620089258944" duration="6983000" />
       <workItem from="1620096381871" duration="5766000" />
+      <workItem from="1620115656683" duration="111000" />
     </task>
     <task id="LOCAL-00001" summary="Modify Customer model and Controller">
       <created>1620052435494</created>
@@ -159,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620104533205</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="git ignore update">
+      <created>1620115688080</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1620115688080</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,7 +198,8 @@
     <MESSAGE value="fix a typo and modify java access restrictor" />
     <MESSAGE value="complete product, ProductController, WareHouse." />
     <MESSAGE value="Error Test End" />
-    <option name="LAST_COMMIT_MESSAGE" value="Error Test End" />
+    <MESSAGE value="git ignore update" />
+    <option name="LAST_COMMIT_MESSAGE" value="git ignore update" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
