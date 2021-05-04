@@ -37,7 +37,7 @@ final class OrderSpecification {
 		return "주문 상세 : ["
 				+ "제품 ID = " + getProductId() + ", "
 				+ "제품 수량 = " + getOrderQuantity() + ", "
-				+ "할일률 = " + getDiscount() +
+				+ "할인율 = " + getDiscount() +
 				"]";
 	}
 

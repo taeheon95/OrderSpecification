@@ -27,7 +27,7 @@ public class OrderView implements ModelView{
 		if(order != null){
 			System.out.println(order);
 			System.out.println();
-			System.out.println("==================주문 목록===============================");
+			System.out.println("========================주문 목록===============================");
 
 			List<OrderSpecification> specificationList = order.getOrderSpecificationList();
 			specificationList.forEach(System.out::println);

@@ -1,5 +1,7 @@
 package com.order;
 
+import com.product.ProductController;
+
 import java.util.*;
 import java.text.SimpleDateFormat;
 
@@ -37,11 +39,10 @@ public class Order {
 		specificationMap.put(os.getProductId(), os);
 	}
 	
-	boolean deleteProduct(String productId) {
+	void deleteProduct(String productId) {
 		if(!specificationMap.containsKey(productId))
-			return false;
+			return;
 		specificationMap.remove(productId);
-		return true;
 	}
 	
 	
@@ -57,13 +58,22 @@ public class Order {
 		return specificationMap.get(productId);
 	}
 
+	public int getPrice(){
+		int price = 0;
+		for(OrderSpecification specification : specificationMap.values()){
+			price += (double)ProductController.getInstance().productPrice(specification.getProductId())
+						* specification.getDiscount();
+		}
+		return price;
+	}
+
 	@Override
 	public String toString() {
 		return "주문 ["
 				+ "주문 번호 : " + orderNum + ", "
 				+ "주문 날짜 : " + getDate() + ", "
 				+ "고객 번호 : " + customerNum + ", "
-				+ "주문 개수 : " + specificationMap.size() +
-				"]";
+				+ "총 주문 금액 :" + getPrice() + " "
+				+ "]";
 	}
 }
