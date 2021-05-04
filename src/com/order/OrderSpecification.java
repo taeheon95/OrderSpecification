@@ -1,15 +1,15 @@
 package com.order;
 
-class OrderSpecification {
+final class OrderSpecification {
 	
-	private String productId;
+	private final String productId;
 	private int orderQuantity;
 	private double discount;
 	
-	OrderSpecification(String productId, int orderQuantity, double discount) {
+	OrderSpecification(String productId, int orderQuantity) {
 		this.productId = productId;
 		this.orderQuantity = orderQuantity;
-		this.discount = discount;
+		setDiscount();
 	}
 
 	int getOrderQuantity() {
@@ -17,18 +17,18 @@ class OrderSpecification {
 	}
 	void setOrderQuantity(Integer orderQuantity) {
 		this.orderQuantity = orderQuantity;
+		setDiscount();
 	}
 	double getDiscount() {
 		return discount;
 	}
-	void setDiscount(double discount) {
-		this.discount = discount;
+	private void setDiscount() {
+		if( orderQuantity >= 1000)
+			discount = 0.9;
+		else discount = 1.0;
 	}
 	String getProductId() {
 		return productId;
-	}
-	void setProductId(String productId) {
-		this.productId = productId;
 	}
 
 
@@ -39,5 +39,9 @@ class OrderSpecification {
 				+ "제품 수량 = " + getOrderQuantity() + ", "
 				+ "할일률 = " + getDiscount() +
 				"]";
+	}
+
+	public void addQuantity(OrderSpecification os) {
+		this.orderQuantity += os.getOrderQuantity();
 	}
 }

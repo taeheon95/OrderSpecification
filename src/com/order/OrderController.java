@@ -11,7 +11,7 @@ public class OrderController {
 		orders = new HashMap<>();
 	}
 	
-	public static OrderController getInstance() {
+	static OrderController getInstance() {
 		if(instance == null){
 			instance = new OrderController();
 		}
@@ -22,30 +22,20 @@ public class OrderController {
 		return orders.get(order_num);
 	}
 	
-	public int makeOrder(int cus_num, LinkedList<OrderSpecification> os) {
-		Order newOrder = new Order(ORDER_NUM, new Date(), cus_num, os);
+	int makeOrder(int cus_num) {
+		Order newOrder = new Order(ORDER_NUM, new Date(), cus_num);
 		orders.put(ORDER_NUM, newOrder);
 		return ORDER_NUM++;
 	}
 	
-	public boolean addOrderSpecification(int orderNum, OrderSpecification os) {
+	void addOrderSpecification(int orderNum, OrderSpecification os) {
 		Order order = orders.get(orderNum);
 		if(order != null){
 			order.addProduct(os);
-			return true;
 		}
-		return false;
 	}
 	
-	public boolean removeOrderSpecification(int orderNum, String productId) {
-		Order order = orders.get(orderNum);
-		if(order != null){
-			return order.deleteProduct(productId);
-		}
-		return false;
-	}
-	
-	public boolean removeOrder(int orderNum) {
+	boolean removeOrder(int orderNum) {
 		Order order = orders.get(orderNum);
 		if(order != null){
 			Order remove = orders.remove(orderNum);
@@ -53,17 +43,5 @@ public class OrderController {
 			return true;
 		}
 		return false;
-	}
-	
-	public boolean getOrderDate(int orderNum, StringBuffer orderDateStr) {
-		if(getOrder(orderNum) != null){
-			orderDateStr = new StringBuffer(getOrder(orderNum).getDate());
-			return true;
-		}
-		return false;
-	}
-	
-	public Order[] returnOrders(){
-		return (Order[]) orders.values().toArray();
 	}
 }

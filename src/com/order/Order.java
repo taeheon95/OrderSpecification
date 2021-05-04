@@ -1,22 +1,20 @@
 package com.order;
 
-import java.util.Date;
+import java.util.*;
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.LinkedList;
 
 public class Order {
 	
 	private final int orderNum;
 	private final Date date;
 	private final int customerNum;
-	private LinkedList<OrderSpecification> orderSpecificationList;
+	private final HashMap<String, OrderSpecification> specificationMap;
 	
-	Order(int orderNum, Date date, int customerNum, LinkedList<OrderSpecification> os) {
+	Order(int orderNum, Date date, int customerNum) {
 		this.orderNum = orderNum;
 		this.date = date;
 		this.customerNum = customerNum;
-		this.orderSpecificationList = os;
+		this.specificationMap = new HashMap<>();
 	}
 	
 	int getOrderNum() {
@@ -33,39 +31,39 @@ public class Order {
 	}
 
 	void addProduct(OrderSpecification os) {
-		orderSpecificationList.add(os);
+		if(specificationMap.containsKey(os.getProductId())){
+			specificationMap.get(os.getProductId()).addQuantity(os);
+		}
+		specificationMap.put(os.getProductId(), os);
 	}
 	
 	boolean deleteProduct(String productId) {
-		for (Iterator<OrderSpecification> iterator = orderSpecificationList.iterator(); iterator.hasNext();) {
-			if(iterator.next().getProductId().equals(productId)) {
-				iterator.remove();
-				return true;
-			}
-		}
-		return false;
+		if(!specificationMap.containsKey(productId))
+			return false;
+		specificationMap.remove(productId);
+		return true;
 	}
 	
 	
-	LinkedList<OrderSpecification> getOrderSpecificationList() {
-		return orderSpecificationList;
-	}
-
-	void setOrderSpecificationList(LinkedList<OrderSpecification> orderSpecificationList) {
-		this.orderSpecificationList = orderSpecificationList;
+	List<OrderSpecification> getOrderSpecificationList() {
+		return specificationMap.values().stream().toList();
 	}
 
 	void deleteAllProduct() {
-		orderSpecificationList.clear();
+		specificationMap.clear();
+	}
+
+	OrderSpecification getOrderSpecification(String productId){
+		return specificationMap.get(productId);
 	}
 
 	@Override
 	public String toString() {
 		return "주문 ["
-				+ "주문 번호=" + orderNum + ", "
-				+ "주문 날짜=" + getDate() + ", "
-				+ "고객 번호=" + customerNum + ", "
-				+ "주문 개수=" + orderSpecificationList.size() +
+				+ "주문 번호 : " + orderNum + ", "
+				+ "주문 날짜 : " + getDate() + ", "
+				+ "고객 번호 : " + customerNum + ", "
+				+ "주문 개수 : " + specificationMap.size() +
 				"]";
 	}
 }
